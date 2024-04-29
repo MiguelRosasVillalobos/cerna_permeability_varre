@@ -9,7 +9,7 @@ from paraview.simple import *
 paraview.simple._DisableFirstRenderCameraReset()
 
 # create a new 'XML MultiBlock Data Reader'
-case_1_Re1vtmseries = XMLMultiBlockDataReader(registrationName='Case_1_Re1.vtm.series', FileName=['/home/miguel/Desktop/OpenFOAM_Proyects/cerna_permeability_varre/Case_1/Case_1_Re1/VTK/Case_1_Re1.vtm.series'])
+case_$ii_Re$jjvtmseries = XMLMultiBlockDataReader(registrationName='Case_$ii_Re$jj.vtm.series', FileName=['/home/miguel/Desktop/OpenFOAM_Proyects/cerna_permeability_varre/Case_$ii/Case_$ii_Re$jj/VTK/Case_$ii_Re$jj.vtm.series'])
 
 # get animation scene
 animationScene1 = GetAnimationScene()
@@ -21,7 +21,7 @@ animationScene1.UpdateAnimationUsingDataTimeSteps()
 renderView1 = GetActiveViewOrCreate('RenderView')
 
 # show data in view
-case_1_Re1vtmseriesDisplay = Show(case_1_Re1vtmseries, renderView1, 'GeometryRepresentation')
+case_1_Re1vtmseriesDisplay = Show(case_$ii_Re$jjvtmseries, renderView1, 'GeometryRepresentation')
 
 # trace defaults for the display properties.
 case_1_Re1vtmseriesDisplay.Representation = 'Surface'
@@ -51,7 +51,7 @@ vtkBlockColorsPWF = GetOpacityTransferFunction('vtkBlockColors')
 vtkBlockColorsTF2D = GetTransferFunction2D('vtkBlockColors')
 
 # create a new 'Plot Over Line'
-plotOverLine1 = PlotOverLine(registrationName='PlotOverLine1', Input=case_1_Re1vtmseries)
+plotOverLine1 = PlotOverLine(registrationName='PlotOverLine1', Input=case_$ii_Re$jjvtmseries)
 
 # Properties modified on plotOverLine1
 plotOverLine1.Point1 = [0.0, 0.0, 0.0]
@@ -95,7 +95,7 @@ passArrays1 = PassArrays(registrationName='PassArrays1', Input=plotOverLine1)
 passArrays1.PointDataArrays = ['arc_length', 'p']
 
 # save data
-SaveData('/home/miguel/Desktop/OpenFOAM_Proyects/cerna_permeability_varre/Case_1/data_Re1.csv', proxy=passArrays1, ChooseArraysToWrite=1,
+SaveData('/home/miguel/Desktop/OpenFOAM_Proyects/cerna_permeability_varre/Case_$ii/data_Re$jj.csv', proxy=passArrays1, ChooseArraysToWrite=1,
     PointDataArrays=['arc_length', 'p'],
     AddMetaData=0)
 

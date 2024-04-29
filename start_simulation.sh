@@ -58,6 +58,7 @@ for ((i = 1; i <= $cantidad_simulaciones; i++)); do
 	cp -r "Case_0/system/" "$carpeta_caso_i/"
 	cp -r "Case_0/geometry_script/" "$carpeta_caso_i/"
 	cp "Case_0/mesh.geo" "$carpeta_caso_i/"
+	cp "Case_0/deltap_extract.py" "$carpeta_caso_i/"
 
 	cd "$carpeta_caso_i/"
 
@@ -111,9 +112,12 @@ for ((i = 1; i <= $cantidad_simulaciones; i++)); do
 	mv geometry_script/ Case_0/
 	mv mesh.geo Case_0/
 	mv mesh.msh Case_0/
+	mv deltap_extract.py Case_0/
 
 	# Se inicia el cilclo para variar el valor de Reynolds
 	for j in {0..14}; do
+		#se genera contador k
+		k=$((j + 1))
 
 		# se crea carpeta del caso para el valor de Reynolds
 		mkdir Case_${i}_${valores_Re[$j]}
@@ -152,6 +156,19 @@ for ((i = 1; i <= $cantidad_simulaciones; i++)); do
 		mv "0/" "Case_${i}_${valores_Re[$j]}/"
 		mv "system/" "Case_${i}_${valores_Re[$j]}/"
 		mv "VTK/" "Case_${i}_${valores_Re[$j]}/"
+
+		# Se copia script de extraccion
+		cp "Case_0/deltap_extract.py" "Case_${i}_${valores_Re[$j]}/"
+
+		# se reemplaza el valor de i y de j+1 en el script de extraccion
+		sed -i "s/\$ii/$i/g" "Case_${i}_${valores_Re[$j]}/deltap_extract.py"
+		sed -i "s/\$jj/$k/g" "Case_${i}_${valores_Re[$j]}/deltap_extract.py"
+
+		cd "Case_${i}_${valores_Re[$j]}/"
+		pvpython deltap_extract.py
+
+		cd ..
+
 	done
 done
 
