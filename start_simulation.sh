@@ -170,6 +170,8 @@ for ((i = 1; i <= $cantidad_simulaciones; i++)); do
 		cd ..
 
 	done
+
+	cd ..
 done
 
 echo "Proceso completado."
