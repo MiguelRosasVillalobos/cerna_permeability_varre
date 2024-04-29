@@ -128,11 +128,11 @@ for ((i = 1; i <= $cantidad_simulaciones; i++)); do
 
 		cd Case_${i}_${valores_Re[$j]}/
 
-		# decomposePar
-		# mpirun -np 6 icoFoam -parallel
-		#
-		# reconstructPar
-		# foamToVTK
+		decomposePar
+		mpirun -np 6 icoFoam -parallel
+
+		reconstructPar
+		foamToVTK
 
 		rm -rR processor*
 
